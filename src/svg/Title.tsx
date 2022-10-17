@@ -11,11 +11,11 @@ const Title = () => {
   );
 };
 
-const styles = styled.svg.attrs({
+const attrs = styled.svg.attrs({
   xmlns: "http://www.w3.org/2000/svg",
 })``;
 
-const Svg = styled(styles)`
+const Svg = styled(attrs)`
   width: 87px;
   height: 54px;
   margin-top: 50px;

@@ -1,9 +1,10 @@
 import { UseFormRegister } from "react-hook-form";
 import styled from "styled-components";
+import { Dollar } from "svg";
 
 type PropsType = {
-  label: String;
-  text: String;
+  label: string;
+  text: string;
   placeholder: string;
   id: string;
   error: string;
@@ -21,12 +22,24 @@ const InputBox: React.FC<PropsType> = (props) => {
         <Label htmlFor={props.id}>{props.text}</Label>
         <Error>{props.error}</Error>
       </Info>
+      <Input
+        type={props.type}
+        placeholder={props.placeholder}
+        id={props.id}
+        {...props.register(props.label, {
+          ...props.validation,
+          onChange: props.onChange,
+        })}
+        defaultValue={props.defaultValue || ""}
+      />
+      <Dollar />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 const Info = styled.div`
@@ -57,6 +70,10 @@ const Input = styled.input`
   text-align: right;
   font-size: 24px;
   line-height: 35px;
+  border: none;
+  margin-top: 6px;
+  padding-right: 5px;
+  padding-left: 50px;
 `;
 
 export default InputBox;
