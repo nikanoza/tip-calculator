@@ -10,7 +10,6 @@ type PropsType = {
   error: string;
   type: string;
   register: UseFormRegister<any>;
-  validation: object;
   onChange?: () => void;
   defaultValue?: string;
 };
@@ -28,7 +27,7 @@ const InputBox: React.FC<PropsType> = (props) => {
         placeholder={props.placeholder}
         id={props.id}
         {...props.register(props.label, {
-          ...props.validation,
+          valueAsNumber: true,
           onChange: props.onChange,
         })}
         defaultValue={props.defaultValue || ""}

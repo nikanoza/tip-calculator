@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schema from "validationSchema";
 
 type calculatorFormValues = {
   bill: number;
@@ -12,55 +14,26 @@ const useCalculator = () => {
     register,
     formState: { errors, dirtyFields },
     control,
+    setValue,
+    trigger,
     handleSubmit,
   } = useForm<calculatorFormValues>({
     mode: "onChange",
+    resolver: yupResolver(schema),
   });
+
   const bill = useWatch({ control, name: "bill" });
   const people = useWatch({ control, name: "people" });
   const percent = useWatch({ control, name: "percent" });
 
   useEffect(() => {
     if (bill && people && percent) {
-      handleSubmit((data) => {})();
+      handleSubmit((data) => {
+        console.log("done");
+      })();
     }
   }, [bill, people, percent, handleSubmit]);
 
-  const billValidations = {
-    required: "Can’t be empty",
-    min: {
-      value: 1,
-      message: "Can’t be less then 1",
-    },
-    max: {
-      value: 10000,
-      message: "Can’t be more then 10000",
-    },
-  };
-
-  const peopleValidations = {
-    required: "Can’t be empty",
-    min: {
-      value: 1,
-      message: "min is 1",
-    },
-    max: {
-      value: 1000,
-      message: "max is 1000",
-    },
-  };
-
-  const percentValidation = {
-    required: "Can’t be empty",
-    min: {
-      value: 1,
-      message: "min is 1",
-    },
-    max: {
-      value: 100,
-      message: "max is 1000",
-    },
-  };
 
   const billError =
     (errors.bill && dirtyFields.bill && errors.bill.message) || "";
@@ -68,14 +41,13 @@ const useCalculator = () => {
     (errors.people && dirtyFields.people && errors.people.message) || "";
   const percentError = errors.percent && dirtyFields.percent;
   return {
-    register,
-    billValidations,
+    register, 
     billError,
-    peopleValidations,
     peopleError,
-    percentValidation,
     percent,
     percentError,
+    setValue,
+    trigger
   };
 };
 

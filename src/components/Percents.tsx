@@ -1,4 +1,8 @@
-import { UseFormRegister } from "react-hook-form";
+import {
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormTrigger,
+} from "react-hook-form";
 import styled from "styled-components";
 import PercentButton from "./PercentButton";
 
@@ -6,8 +10,9 @@ type PropsType = {
   label: string;
   error: boolean | undefined;
   percent: number;
+  trigger: UseFormTrigger<any>;
+  onChange: UseFormSetValue<any>;
   register: UseFormRegister<any>;
-  validation: object;
 };
 
 const buttons = [5, 10, 15, 25, 50];
@@ -21,7 +26,10 @@ const Percents: React.FC<PropsType> = (props) => {
           <PercentButton
             key={button}
             active={props.percent === button}
-            onClick={() => {}}
+            onClick={() => {
+              props.onChange("percent", button);
+              props.trigger("percent");
+            }}
             type="button"
           >
             {button}%
@@ -33,7 +41,7 @@ const Percents: React.FC<PropsType> = (props) => {
           placeholder="Custom"
           id="percent"
           {...props.register(props.label, {
-            ...props.validation,
+            valueAsNumber: true,
           })}
         />
       </Buttons>
