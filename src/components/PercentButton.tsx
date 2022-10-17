@@ -11,7 +11,10 @@ type PropsType = {
 const PercentButton: React.FC<PropsType> = (props) => {
   return (
     <Button
-      backgroundColor={props.active ? "#9FE8DF" : "#00474B"}
+      style={{
+        backgroundColor: props.active ? "#9FE8DF" : "#00474B",
+        color: props.active ? "#00474B" : "#FFFFFF",
+      }}
       onClick={props.onClick}
       type={props.type}
     >
@@ -20,15 +23,12 @@ const PercentButton: React.FC<PropsType> = (props) => {
   );
 };
 
-type ButtonProps = {
-  backgroundColor: string;
-};
-
-const Button = styled.button.attrs((props: ButtonProps) => ({
-  backgroundColor: props.backgroundColor,
-}))`
-  width: 117px;
+const Button = styled.button`
+  width: 146px;
+  border: none;
   height: 48px;
+  font-size: 24px;
+  line-height: 35px;
   border-radius: 5px;
 `;
 

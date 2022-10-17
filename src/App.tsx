@@ -1,12 +1,20 @@
-import { Card, InputBox } from "components";
+import { Card, InputBox, Percents } from "components";
 import GlobalStyles from "globalStyles";
 import { useCalculator } from "hooks";
 import styled from "styled-components";
 import { Title } from "svg";
 
 function App() {
-  const { register, billValidations, billError, peopleError } =
-    useCalculator();
+  const {
+    register,
+    billValidations,
+    billError,
+    peopleValidations,
+    peopleError,
+    percentValidation,
+    percent,
+    percentError,
+  } = useCalculator();
 
   return (
     <Main>
@@ -24,6 +32,13 @@ function App() {
             validation={billValidations}
             error={billError}
           />
+          <Percents
+            label="percent"
+            error={percentError}
+            register={register}
+            validation={percentValidation}
+            percent={percent}
+          />
           <InputBox
             label="people"
             text="Number of People"
@@ -31,7 +46,7 @@ function App() {
             id="people-input"
             register={register}
             type="number"
-            validation={billValidations}
+            validation={peopleValidations}
             error={peopleError}
           />
         </form>

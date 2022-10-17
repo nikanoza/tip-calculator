@@ -24,6 +24,7 @@ const InputBox: React.FC<PropsType> = (props) => {
       </Info>
       <Input
         type={props.type}
+        style={{ border: props.error ? "1px solid #E17052" : "none" }}
         placeholder={props.placeholder}
         id={props.id}
         {...props.register(props.label, {
@@ -76,9 +77,6 @@ const Input = styled.input`
   padding-left: 50px;
   &:focus {
     border: 2px solid #26c2ae;
-  }
-  &:invalid {
-    border: 2px solid #e17052;
   }
 `;
 
