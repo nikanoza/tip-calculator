@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "validationSchema";
@@ -10,13 +10,17 @@ type calculatorFormValues = {
 };
 
 const useCalculator = () => {
+  const [tipAmount, setTipAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
   const {
     register,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isDirty },
     control,
     setValue,
     trigger,
     handleSubmit,
+    reset,
   } = useForm<calculatorFormValues>({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -29,11 +33,14 @@ const useCalculator = () => {
   useEffect(() => {
     if (bill && people && percent) {
       handleSubmit((data) => {
-        console.log("done");
+        const tip = (data.bill * (data.percent / 100)) / data.people;
+        const total =
+          (data.bill + data.bill * (data.percent / 100)) / data.people;
+        setTipAmount(tip);
+        setTotalAmount(total);
       })();
     }
   }, [bill, people, percent, handleSubmit]);
-
 
   const billError =
     (errors.bill && dirtyFields.bill && errors.bill.message) || "";
@@ -41,13 +48,19 @@ const useCalculator = () => {
     (errors.people && dirtyFields.people && errors.people.message) || "";
   const percentError = errors.percent && dirtyFields.percent;
   return {
-    register, 
+    register,
     billError,
     peopleError,
     percent,
     percentError,
     setValue,
-    trigger
+    trigger,
+    isDirty,
+    reset,
+    tipAmount,
+    setTipAmount,
+    totalAmount,
+    setTotalAmount,
   };
 };
 

@@ -11,6 +11,7 @@ const schema = yup.object().shape({
     .number()
     .transform((v: number) => (isNaN(v) ? undefined : v))
     .min(1, "Min is 1")
+    .integer("Must be integer")
     .max(1000, "Max is 1000")
     .required("Can’t be empty"),
   percent: yup

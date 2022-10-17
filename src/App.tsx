@@ -1,4 +1,4 @@
-import { Card, InputBox, Percents } from "components";
+import { Card, InputBox, Percents, Results } from "components";
 import GlobalStyles from "globalStyles";
 import styled from "styled-components";
 import { Title } from "svg";
@@ -12,7 +12,13 @@ function App() {
     percent,
     percentError,
     setValue,
-    trigger
+    trigger,
+    isDirty,
+    reset,
+    tipAmount,
+    setTipAmount,
+    totalAmount,
+    setTotalAmount,
   } = useCalculator();
 
   return (
@@ -47,6 +53,9 @@ function App() {
             type="number"
             error={peopleError}
           />
+          <Results formIsDirty={isDirty} resetFunc={reset} tipAmount={tipAmount} setTipAmount={setTipAmount}
+            totalAmount={totalAmount}
+          setTotalAmount={setTotalAmount}/>
         </form>
       </Card>
     </Main>
@@ -55,7 +64,7 @@ function App() {
 
 const Main = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-color: #c5e4e7;
   display: flex;
   flex-direction: column;
