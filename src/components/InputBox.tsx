@@ -74,6 +74,12 @@ const Input = styled.input`
   margin-top: 6px;
   padding-right: 5px;
   padding-left: 50px;
+  &:focus {
+    border: 2px solid #26c2ae;
+  }
+  &:invalid {
+    border: 2px solid #e17052;
+  }
 `;
 
 export default InputBox;

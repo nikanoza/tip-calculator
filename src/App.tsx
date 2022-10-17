@@ -1,12 +1,12 @@
-import Card from "components/Card";
-import InputBox from "components/InputBox";
+import { Card, InputBox } from "components";
 import GlobalStyles from "globalStyles";
-import useCalculator from "hooks/useCalculator";
+import { useCalculator } from "hooks";
 import styled from "styled-components";
 import { Title } from "svg";
 
 function App() {
-  const { register, billValidations, billError } = useCalculator();
+  const { register, billValidations, billError, peopleError } =
+    useCalculator();
 
   return (
     <Main>
@@ -23,6 +23,16 @@ function App() {
             type="number"
             validation={billValidations}
             error={billError}
+          />
+          <InputBox
+            label="people"
+            text="Number of People"
+            placeholder="0"
+            id="people-input"
+            register={register}
+            type="number"
+            validation={billValidations}
+            error={peopleError}
           />
         </form>
       </Card>

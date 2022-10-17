@@ -1,16 +1,31 @@
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
 
 type calculatorFormValues = {
   bill: number;
-  peopleAmount: number;
-  percent: number;
+  people: number;
+  // percent: number;
 };
 
 const useCalculator = () => {
   const {
     register,
-    formState: { errors },
-  } = useForm<calculatorFormValues>();
+    formState: { errors, dirtyFields },
+    control,
+    handleSubmit,
+  } = useForm<calculatorFormValues>({
+    mode: "onChange",
+  });
+  const bill = useWatch({ control, name: "bill" });
+  const people = useWatch({ control, name: "people" });
+
+  useEffect(() => {
+    const billIsValid = bill && bill > 0;
+    const peopleIsValid = people && people > 0;
+    if (billIsValid && peopleIsValid) {
+      handleSubmit((data) => console.log("data", data))();
+    }
+  }, [bill,people, handleSubmit]);
 
   const billValidations = {
     required: "Can’t be empty",
@@ -24,9 +39,18 @@ const useCalculator = () => {
     },
   };
 
-  const billError = (errors.bill && errors.bill.message) || "";
+  const billError =
+    (errors.bill && dirtyFields.bill && errors.bill.message) || "";
+  const peopleError =
+    (errors.people && dirtyFields.people && errors.people.message) || "";
 
-  return { register, errors, billValidations, billError };
+  return {
+    register,
+    errors,
+    billValidations,
+    billError,
+    peopleError,
+  };
 };
 
 export default useCalculator;

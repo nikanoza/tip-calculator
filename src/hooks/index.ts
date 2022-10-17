@@ -1,1 +1,1 @@
-export { default as UseCalculator } from "./useCalculator";
+export { default as useCalculator } from "./useCalculator";
