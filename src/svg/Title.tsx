@@ -18,7 +18,10 @@ const attrs = styled.svg.attrs({
 const Svg = styled(attrs)`
   width: 87px;
   height: 54px;
-  margin-top: 50px
+  margin-top: 50px;
+  @media (min-width: 1024px){
+    margin-top: 163px;
+  }
 `;
 
 export default Title;

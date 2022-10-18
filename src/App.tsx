@@ -30,6 +30,7 @@ function App() {
           <InputBox
             label="bill"
             text="bill"
+            icon="dollar"
             placeholder="0"
             id="bill-input"
             register={register}
@@ -46,6 +47,7 @@ function App() {
           />
           <InputBox
             label="people"
+            icon="person"
             text="Number of People"
             placeholder="0"
             id="people-input"
@@ -53,10 +55,15 @@ function App() {
             type="number"
             error={peopleError}
           />
-          <Results formIsDirty={isDirty} resetFunc={reset} tipAmount={tipAmount} setTipAmount={setTipAmount}
-            totalAmount={totalAmount}
-          setTotalAmount={setTotalAmount}/>
         </form>
+        <Results
+          formIsDirty={isDirty}
+          resetFunc={reset}
+          tipAmount={tipAmount}
+          setTipAmount={setTipAmount}
+          totalAmount={totalAmount}
+          setTotalAmount={setTotalAmount}
+        />
       </Card>
     </Main>
   );

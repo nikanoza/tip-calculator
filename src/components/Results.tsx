@@ -27,10 +27,11 @@ const Results: React.FC<{
       </InfoBox>
       <Button
         type="button"
-        style={{
-          backgroundColor: props.formIsDirty ? "#26C2AE" : "#0D686D",
-          opacity: props.formIsDirty ? "1" : "0.35",
-        }}
+        active={props.formIsDirty}
+        // style={{
+        //   backgroundColor: props.formIsDirty ? "#26C2AE" : "#0D686D",
+        //   opacity: props.formIsDirty ? "1" : "0.35",
+        // }}
         onClick={() => {
           props.resetFunc();
           props.setTipAmount(0);
@@ -51,6 +52,10 @@ const Wrapper = styled.div`
   padding: 37px 22px 24px 24px;
   background-color: #00474b;
   border-radius: 15px;
+  @media (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -77,15 +82,29 @@ const TipAmount = styled.div`
   line-height: 47px;
 `;
 
-const Button = styled.button`
+type ButtonProps = {
+  active: boolean | undefined;
+};
+
+const Button = styled.button(
+  (props: ButtonProps) => `
   width: 100%;
   height: 46px;
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 20px;
   line-height: 30px;
+  margin-top: 12px;
   border: none;
+  background-color: ${props.active ? "#26C2AE" : "#0D686D"};
+  opacity: ${props.active ? 1 : 0.35};
+  cursor: pointer;
   &:hover {
     background-color: #9fe8df;
+    opacity: 1;
   }
-`;
+  @media (min-width: 1024px) {
+    margin-top: auto;
+  }
+`
+);

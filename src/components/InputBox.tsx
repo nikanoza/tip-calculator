@@ -1,6 +1,6 @@
 import { UseFormRegister } from "react-hook-form";
 import styled from "styled-components";
-import { Dollar } from "svg";
+import { Dollar, Person } from "svg";
 
 type PropsType = {
   label: string;
@@ -9,6 +9,7 @@ type PropsType = {
   id: string;
   error: string;
   type: string;
+  icon: string;
   register: UseFormRegister<any>;
   onChange?: () => void;
   defaultValue?: string;
@@ -32,7 +33,8 @@ const InputBox: React.FC<PropsType> = (props) => {
         })}
         defaultValue={props.defaultValue || ""}
       />
-      <Dollar />
+      {props.icon === "dollar" && <Dollar />}
+      {props.icon === "person" && <Person />}
     </Wrapper>
   );
 };
@@ -63,6 +65,14 @@ const Error = styled.p`
 `;
 
 const Input = styled.input`
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   width: 100%;
   height: 48px;
   background-color: #f3f9fa;
