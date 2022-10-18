@@ -37,7 +37,7 @@ const Percents: React.FC<PropsType> = (props) => {
         ))}
         <Input
           type="number"
-          style={{ border: props.error ? "1px solid #E17052" : "none" }}
+          error={Boolean(props.error)}
           placeholder="Custom"
           id="percent"
           {...props.register(props.label, {
@@ -74,7 +74,12 @@ const ButtonsHeader = styled.span`
   line-height: 24px;
 `;
 
-const Input = styled.input`
+type InputProps = {
+  error: boolean;
+};
+
+const Input = styled.input(
+  (props: InputProps) => `
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -93,6 +98,7 @@ const Input = styled.input`
   border: none;
   padding-right: 17px;
   padding-left: 17px;
+  border: ${props.error ? "1px solid #E17052" : "none"};
   &:focus {
     border: 2px solid #26c2ae;
   }
@@ -100,6 +106,7 @@ const Input = styled.input`
     width: 118px;
     padding-right: 10px;
   }
-`;
+`
+);
 
 export default Percents;

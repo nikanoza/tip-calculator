@@ -24,7 +24,7 @@ const InputBox: React.FC<PropsType> = (props) => {
       </Info>
       <Input
         type={props.type}
-        style={{ border: props.error ? "1px solid #E17052" : "none" }}
+        error={Boolean(props.error)}
         placeholder={props.placeholder}
         id={props.id}
         {...props.register(props.label, {
@@ -64,7 +64,12 @@ const Error = styled.p`
   line-height: 24px;
 `;
 
-const Input = styled.input`
+type InputProps = {
+  error: boolean;
+};
+
+const Input = styled.input(
+  (props: InputProps) => `
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -82,11 +87,13 @@ const Input = styled.input`
   line-height: 35px;
   border: none;
   margin-top: 6px;
+  border: ${props.error ? "1px solid #E17052" : "none"};
   padding-right: 5px;
   padding-left: 50px;
   &:focus {
     border: 2px solid #26c2ae;
   }
-`;
+`
+);
 
 export default InputBox;
